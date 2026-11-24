@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>TikTok sign-in · Overthink Doodle</title>
+<link rel="icon" href="../favicon.png">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<main>
+<header class="site"><img src="../logo.jpg" alt=""><a href="../">Overthink Doodle</a></header>
+<h1>TikTok sign-in</h1>
+<p id="msg" class="lead">Finishing sign-in…</p>
+<p class="muted">This page belongs to Overthink Doodle Publisher, the creator's private publishing tool. It hands TikTok's
+one-time sign-in code to the tool running on the creator's own computer (127.0.0.1) and stores nothing.</p>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search), msg = document.getElementById('msg');
+  if (q.get('error')) { msg.textContent = 'TikTok said: ' + (q.get('error_description') || q.get('error')); return; }
+  if (!q.get('code')) { msg.textContent = 'No sign-in code here. Start the sign-in from the publishing tool.'; return; }
+  // the local tool (python3 -m reel.tiktok auth) listens on this Mac only
+  location.replace('http://127.0.0.1:8771/tiktok/callback' + location.search);
+})();
+</script>
+</main>
+</body>
+</html>
